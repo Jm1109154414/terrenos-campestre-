@@ -48,6 +48,7 @@
   .s-of{background:#d7e7d1;color:#2c5230} /* sitio oficial / listado */
   .s-de{background:#e7ddc7;color:#7a5a1e} /* deck cliente */
   .s-ca{background:#efd9dd;color:#7B2D3A} /* cálculo/derivado */
+  .s-ref{background:#e3e3e3;color:#555} /* referencia externa, fuera de Coahuila, sin precio público */
   /* two corridor cards */
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .corr{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
@@ -278,13 +279,16 @@ const rows = [
   {n:'Fracc. campestre SJV',u:'San Juan de la Vaquería',l:'desde 1,000',p:'$450/m² (contado $395)',ppm:'450',ppmv:450,der:false,vi:'No',f:'Preventa',s:'of'},
   {n:'Hacienda Falcón',u:'Ejido Derramadero',l:'1,001–1,600',p:'~$280 mil',ppm:'240',ppmv:240,der:false,vi:'No',f:'Venta',s:'of'},
   {n:'Bosque Boreal',u:'San Antonio de las Alazanas',l:'2,000–4,000',p:'$2.16 MDP (3,482 m²)',ppm:'620',ppmv:620,der:true,vi:'No',f:'Venta',s:'of'},
+  {n:'Bosques de Monterreal',u:'San Antonio de las Alazanas',l:'1,600–10,124',p:'desde $6.88 MDP (10,124 m²)',ppm:'680',ppmv:680,der:true,vi:'No',f:'Venta (consolidado)',s:'of'},
   {n:'Montesanto',u:'Huachichil (Ruta del Vino)',l:'2,500–4,600',p:'desde $3.2 MDP',ppm:'1,300',ppmv:1300,der:false,vi:'Sí',f:'Preventa / venta',s:'of'},
   {n:'Valle del Viento',u:'Huachichil',l:'4,016–6,000',p:'desde $6.98 MDP',ppm:'1,740',ppmv:1740,der:true,vi:'Sí (por lote)',f:'Preventa',s:'of'},
   {n:'Artesa',u:'Sierra del Diamante',l:'2,000–11,000',p:'desde $3.5 MDP',ppm:'1,750',ppmv:1750,der:true,vi:'No',f:'Preventa',s:'of'},
   {n:'Terra Serena',u:'Arteaga (Los Lirios)',l:'1,000–3,000',p:'base $3,700 · contado $3,330',ppm:'3,700',ppmv:3700,der:false,vi:'Sí (amenidad)',f:'Venta',s:'of'},
+  {n:'Vinícola Parvada',u:'Parras de la Fuente (Ruta del Vino)',l:'264–2,000',p:'1ª/2ª etapa $3,950/m² · 3ª (activa) $5,500/m²',ppm:'3,950–5,500',ppmv:3950,der:false,vi:'Sí (20+ ha, Los Hoyos)',f:'1ª/2ª agotada · 3ª preventa',s:'of'},
   {n:'El Zorrillo',u:'Cañón de Jamé → Potrero de Ábrego',l:'rancho (256 ha)',p:'no público',ppm:'—',ppmv:null,vi:'No',f:'Temprana',s:'de'},
+  {n:'Las Misiones Club Campestre',u:'Cañón del Huajuco, Santiago, N.L. — fuera de Coahuila',l:'club de golf 67 ha',p:'acceso por membresía, sin precio público',ppm:'—',ppmv:null,vi:'No',f:'Consolidado desde 1988',s:'ref'},
 ];
-const srcLabel={of:['Listado / oficial','s-of'],de:['Deck cliente','s-de'],ca:['Cálculo','s-ca']};
+const srcLabel={of:['Listado / oficial','s-of'],de:['Deck cliente','s-de'],ca:['Cálculo','s-ca'],ref:['Fuera de Coahuila','s-ref']};
 
 // build matrix
 const mb = document.getElementById('matrix');
@@ -305,12 +309,14 @@ const barData = [
   {l:'Hacienda Falcón',v:240,vino:false},
   {l:'Fracc. SJV',v:450,vino:false},
   {l:'Bosque Boreal',v:620,vino:false},
+  {l:'Bosques de Monterreal',v:680,vino:false},
   {l:'Montesanto (viñedo)',v:1300,vino:true},
   {l:'Valle del Viento (viñedo)',v:1740,vino:true},
   {l:'Artesa',v:1750,vino:false},
   {l:'Terra Serena',v:3700,vino:false},
+  {l:'Vinícola Parvada (viñedo)',v:3950,vino:true},
 ];
-const maxBar=3900;
+const maxBar=4150;
 function renderBars(tu){
   const host=document.getElementById('bars'); host.innerHTML='';
   const all=[...barData,{l:'★ Tu precio',v:tu,tu:true}];
